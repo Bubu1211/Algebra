@@ -4,10 +4,9 @@
 
 package numeros;
 
+import java.text.DecimalFormat;  ///librería para formatear números
+
 //esta clase se encarga de representar objetos de números complejos
-
-import java.text.DecimalFormat;
-
 public class Complejo {
     
     private float a;  //representado por la letra a, la parte real del número complejo
@@ -39,6 +38,23 @@ public class Complejo {
     
     public String getParOrdenado(){
         return "("+formato(a)+","+formato(b)+"i)";
+    }
+    
+    /*Calcula el conjugado de este número complejo
+    *El complemento de un N. complejo es el mismo con la parte imaginaria con signo contrario
+    *la función solo aplica el complemento al número modificandolo
+    */
+    public void complemento(){
+        this.b = -this.b;
+    }
+    
+    /*Calcula el modulo de este número complejo 
+    *el modulo es la magnitud del vector que representa el número complejo en 
+    *el plano de Argand
+    */
+    public double modulo(){
+        ///Por definición el modulo se obtiene del teorema de pitagoras  
+        return Math.sqrt(Math.pow(this.a, 2)+Math.pow(this.b, 2));
     }
     
     //esta función tiene el objetivo de formatear las partes del número complejo dependiendo de si se trata de un número
