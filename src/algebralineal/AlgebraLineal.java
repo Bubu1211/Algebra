@@ -27,6 +27,12 @@ public class AlgebraLineal {
             JOptionPane.showMessageDialog(null, "Forma Binómica: "+z.getFormaBinomica() + "\nPar Ordenado: "+z.getParOrdenado(),
                     "Número Complejo", JOptionPane.INFORMATION_MESSAGE);
             
+            ///Se aplica el complemento 
+            z.complemento();
+            JOptionPane.showMessageDialog(null, "Complemento de z: "+z.getFormaBinomica(),  "Número Complejo", JOptionPane.INFORMATION_MESSAGE);
+            ///Obtener el modulo
+            JOptionPane.showMessageDialog(null, "Modulo de z: "+z.modulo(),  "Número Complejo", JOptionPane.INFORMATION_MESSAGE);
+            
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Ocurrio un error, tal vez ingreso letras en lugar de números", "Error",
                     JOptionPane.ERROR_MESSAGE);
