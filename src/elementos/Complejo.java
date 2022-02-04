@@ -1,7 +1,7 @@
 //integrantes: César Ricardo Lazcano Valdez, Jesus Cordova, Jesús Soto
 //objetivo: Representar los números complejos, demostrando los conocimientos necesarios sobre el tema 
 ///aplicandolos en un programa en el lenguaje Java
-package numeros;
+package elementos;
 
 import java.text.DecimalFormat;  ///librería para formatear números
 
@@ -55,8 +55,9 @@ public class Complejo {
     *El complemento de un N. complejo es el mismo con la parte imaginaria con signo contrario
     *la función solo aplica el complemento al número modificandolo
      */
-    public void complemento() {
+    public String complemento() {
         this.b = -this.b;
+        return this.getFormaBinomica();
     }
 
     /*Calcula el modulo de este número complejo 
@@ -89,7 +90,7 @@ public class Complejo {
         int indiceA = numero.lastIndexOf("+");
 
         if (indiceA == -1) { ///Si se tiene el valor de -1 es que no hay el signo más
-            indiceA = numero.indexOf("-"); ///Se obtiene entonces el índice del signo menos
+            indiceA = numero.lastIndexOf("-"); ///Se obtiene entonces el índice del signo menos
         }
 
         ///Se convierte la subcadena que va desde el principio hasta donde aparece el signo
