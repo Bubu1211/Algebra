@@ -37,6 +37,8 @@ public class PlanoArgand extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setText("Plano Argand");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -92,6 +94,7 @@ public class PlanoArgand extends javax.swing.JPanel {
             ///Se dibuja una línea desde el origen hacia el par ordenado de z
             var puntoZ = new Point(origen.x + (unidad*(int)z.getA()),origen.y- (unidad*(int)z.getB()));
             g.drawLine(origen.x, origen.y, puntoZ.x, puntoZ.y);
+            g.drawString(z.getParOrdenado(), puntoZ.x, puntoZ.y);
         }
         g.setColor(java.awt.Color.DARK_GRAY);
         
@@ -105,24 +108,28 @@ public class PlanoArgand extends javax.swing.JPanel {
         for(int i = 1; i<= xp; i++){
             sum = unidad * i; //Obtiene la unidad desplazada que se va a recorrer
             g.drawLine(origen.x + sum, origen.y-10, origen.x + sum, origen.y+10); //dibuja la línea perpendicular
+            g.drawString(i+"", origen.x + sum, origen.y+20); //dibuja el número en su correspondiente lugar
         }
         ///linea de unidades del eje x negativo 
         sum = 0;
         for(int i = 0; i<=Math.abs(xn); i++){
             sum = unidad*i;
             g.drawLine(origen.x - sum, origen.y-10, origen.x - sum, origen.y+10);
+            g.drawString("-"+i, origen.x - sum, origen.y+20); //dibuja el número en su correspondiente lugar
         }
         ///Líneas de unidades del eje y positivo
         sum = 0;
-        for(int i = 0; i<=yp; i++){
+        for(int i = 1; i<=yp; i++){
             sum = unidad*i;
             g.drawLine(origen.x -10, origen.y- sum, origen.x +10, origen.y- sum);
+            g.drawString(i+"i", origen.x -30, origen.y- sum+10); //dibuja el número en su correspondiente lugar
         }
         ///Lineas de unidades del eje y negativo
         sum = 0;
-        for(int i = 0; i<=Math.abs(yn); i++){
+        for(int i = 1; i<=Math.abs(yn); i++){
             sum = unidad*i;
             g.drawLine(origen.x +10 , origen.y+sum, origen.x - 10, origen.y+sum);
+            g.drawString("-"+i+"i",origen.x - 20, origen.y+sum+10); //dibuja el número en su correspondiente lugar
         }
     }
 

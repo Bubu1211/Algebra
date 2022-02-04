@@ -55,7 +55,7 @@ public class Complejo {
     *El complemento de un N. complejo es el mismo con la parte imaginaria con signo contrario
     *la función solo aplica el complemento al número modificandolo
      */
-    public String complemento() {
+    public String conjugado() {
         this.b = -this.b;
         return this.getFormaBinomica();
     }
@@ -68,7 +68,31 @@ public class Complejo {
         ///Por definición el modulo se obtiene del teorema de pitagoras  
         return Math.sqrt(Math.pow(this.a, 2) + Math.pow(this.b, 2));
     }
-
+    
+    /*Función que dado otro número complejo retorna un número complejp 
+    *cuyo valor es la suma de este y el dado
+    */
+    public Complejo suma(Complejo z2){
+        var z3 = new Complejo();
+        
+        z3.setA(this.getA() + z2.getA()); //una buena práctica es usar setter and getters
+        z3.setB(this.getB() + z2.getB());
+        
+        return z3;
+    }
+    
+    /*Función que dado otro número complejo retorna un número complejp 
+    *cuyo valor es la resta de este y el dado
+    */
+    public Complejo resta(Complejo z2){
+        var z3 = new Complejo();
+        
+        z3.setA(this.getA() - z2.getA()); //una buena práctica es usar setter and getters
+        z3.setB(this.getB() - z2.getB());
+        
+        return z3;
+    }
+    
     //esta función tiene el objetivo de formatear las partes del número complejo dependiendo de si se trata de un número
     //entero o uno decimal
     private String formato(float x) {
