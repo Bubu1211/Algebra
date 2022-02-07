@@ -1,12 +1,12 @@
 package vista;
 
-import elementos.Complejo;
-import elementos.visuales.PlanoArgand;
+import elementos.numeros.Complejo;
+import elementos.graficos.PlanoCartesiano;
 import javax.swing.JOptionPane;
 
 public class Ventana extends javax.swing.JFrame {
 
-    private PlanoArgand planoArgand;
+    private PlanoCartesiano planoArgand;
     private Complejo z1;    ///Para manejar los numeros complejos
     private Complejo z2;    ///Se usará una lista de Complejos
     
@@ -228,7 +228,7 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_restarActionPerformed
     
     public void addPlano(){
-        this.planoArgand = new PlanoArgand();
+        this.planoArgand = new PlanoCartesiano();
         var bounds = this.btn_graficar.getBounds();
         this.planoArgand.setBounds(0,bounds.y+20+bounds.height, 500,400);
         this.numerosComplejos.add(this.planoArgand);

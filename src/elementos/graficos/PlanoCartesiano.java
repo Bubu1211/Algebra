@@ -1,11 +1,11 @@
-package elementos.visuales;
+package elementos.graficos;
 
-import elementos.Complejo;
+import elementos.numeros.Complejo;
 import java.awt.Graphics;
 import java.awt.Point;
 
 
-public class PlanoArgand extends javax.swing.JPanel {
+public class PlanoCartesiano extends javax.swing.JPanel {
 
     private int anchoPlano;
     private int altoPlano;
@@ -17,7 +17,7 @@ public class PlanoArgand extends javax.swing.JPanel {
     private Point puntoID;
     private Complejo z;
     
-    public PlanoArgand() {
+    public PlanoCartesiano() {
         initComponents();
         setBounds(0,0,500,400);
         this.anchoPlano = this.getWidth()-40;
@@ -130,6 +130,12 @@ public class PlanoArgand extends javax.swing.JPanel {
             sum = unidad*i;
             g.drawLine(origen.x +10 , origen.y+sum, origen.x - 10, origen.y+sum);
             g.drawString("-"+i+"i",origen.x - 20, origen.y+sum+10); //dibuja el número en su correspondiente lugar
+        }
+        
+        g.setColor(java.awt.Color.GREEN);
+        for(int i = 0; i<100; i++){
+            g.drawLine(i, i, i, i);
+            
         }
     }
 

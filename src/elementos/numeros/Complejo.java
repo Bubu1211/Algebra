@@ -1,7 +1,7 @@
 //integrantes: César Ricardo Lazcano Valdez, Jesus Cordova, Jesús Soto
 //objetivo: Representar los números complejos, demostrando los conocimientos necesarios sobre el tema 
 ///aplicandolos en un programa en el lenguaje Java
-package elementos;
+package elementos.numeros;
 
 import java.text.DecimalFormat;  ///librería para formatear números
 
@@ -10,17 +10,18 @@ public class Complejo {
 
     private float a;  //representado por la letra a, la parte real del número complejo
     private float b; //representado por la letra b, es la parte imaginaria del número
-    
-    public Complejo(float a, float b){
+
+    public Complejo(float a, float b) {
         this.a = a;
         this.b = b;
     }
-    
-    public Complejo(String numero){
+
+    public Complejo(String numero) {
         this.formarNumero(numero);
     }
-    
-    public Complejo(){}
+
+    public Complejo() {
+    }
 
     public float getA() {
         return a;
@@ -68,31 +69,31 @@ public class Complejo {
         ///Por definición el modulo se obtiene del teorema de pitagoras  
         return Math.sqrt(Math.pow(this.a, 2) + Math.pow(this.b, 2));
     }
-    
+
     /*Función que dado otro número complejo retorna un número complejp 
     *cuyo valor es la suma de este y el dado
-    */
-    public Complejo suma(Complejo z2){
+     */
+    public Complejo suma(Complejo z2) {
         var z3 = new Complejo();
-        
+
         z3.setA(this.getA() + z2.getA()); //una buena práctica es usar setter and getters
         z3.setB(this.getB() + z2.getB());
-        
+
         return z3;
     }
-    
+
     /*Función que dado otro número complejo retorna un número complejp 
     *cuyo valor es la resta de este y el dado
-    */
-    public Complejo resta(Complejo z2){
+     */
+    public Complejo resta(Complejo z2) {
         var z3 = new Complejo();
-        
+
         z3.setA(this.getA() - z2.getA()); //una buena práctica es usar setter and getters
         z3.setB(this.getB() - z2.getB());
-        
+
         return z3;
     }
-    
+
     //esta función tiene el objetivo de formatear las partes del número complejo dependiendo de si se trata de un número
     //entero o uno decimal
     private String formato(float x) {
