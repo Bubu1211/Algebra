@@ -1,29 +1,39 @@
+//integrantes: César Ricardo Lazcano Valdez, Jonathan
+//objetivo: Representar los números complejos, demostrando los conocimientos necesarios sobre el tema 
+///aplicandolos en un programa en el lenguaje Java
+
 package elementos.graficos;
 
 import elementos.numeros.Complejo;
 import java.awt.Graphics;
 import java.awt.Point;
 
-
+/**Esta clase tiene el objetivo de representar el plano de Argand a través d la librería Grpahics
+ * Dibujar se refiere al acto de realizar la graficacion por computadora con la lib java.awt.Graphics
+ */
 public class PlanoArgand extends javax.swing.JPanel {
 
     private int anchoPlano;
     private int altoPlano;
     private int unidad;
+    ///Representan el valor de sus ejes en esas posiciones
+    ///Es decir, xp es la cantidad de unidades hacia el eje x positivo
     private int xp, xn, yp, yn;
     private Point puntoSI;
     private Point puntoSD;
     private Point puntoII;
     private Point puntoID;
-    private Complejo z;
-    private boolean graficarArgumento;
-    private double argumento;
+    private Complejo z; ///Es el número complejo que se va a gráficar 
+    private boolean graficarArgumento; //Indica si se dibuja o no el argumento
+    private double argumento;D
     
     public PlanoArgand() {
         initComponents();
         setBounds(0,0,500,400);
+        ///Se obtiene el ancho y el alto del plano usando el ancho y alto del JPanel
         this.anchoPlano = this.getWidth()-40;
         this.altoPlano = this.getHeight()-40;
+        //se crean cuatro puntos que son las esquinas del plano cartesiano o de Argand
         this.puntoSI = new Point(20, 20);
         this.puntoSD = new Point(this.getWidth()-20, 20);
         this.puntoII = new Point(20, this.getHeight()-20);
@@ -61,6 +71,17 @@ public class PlanoArgand extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**Este método sobreescrito realiza los dibujos, con el método repaint se vuelve a llamar
+     * Con ayuda de la clase Point quye básicamente es una clase que representa un par ordenado, se 
+     * representan los puntos necesarios
+     * Algoritmo seguido para graficar
+     * 1 Se obtienen las coordenadas de las esquinas
+     * 2 se obtiene el valor de la unidad representativa 
+     * 3 se obtiene el punto de origen en base a xp, xn, yp, yn
+     * 4 se dibujan las líneas que representan a los ejes en sus valores + y -
+     * 5 Se Obtiene el punto que representa el par ordenado de z
+     * 6 se dibuja una línea desde el oprigen hasta el punto z 
+     */
     //Point inicio, Point fin
     @Override
     public void paint(Graphics g){
@@ -152,6 +173,10 @@ public class PlanoArgand extends javax.swing.JPanel {
         repaint();
     }
     
+    /**Se llama desde la clase ventana, asignando nuevos valores a los ejes y a z 
+     * Y se llama el método repaint para repintar el plano de argand 
+     */
+    
     public void dibujarNComplejo(Complejo z, int xp, int xn, int yp, int yn) {
         this.xp = xp;
         this.xn = xn;
@@ -161,6 +186,8 @@ public class PlanoArgand extends javax.swing.JPanel {
         repaint();
     }
     
+    /**Se llama desde ventana cambia la bandera de graficarArgumento
+     */
     public void dibujarArgumento(double argumento){
         this.argumento = argumento;
         this.graficarArgumento = !this.graficarArgumento;

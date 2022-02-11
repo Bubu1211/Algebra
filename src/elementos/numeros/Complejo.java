@@ -1,4 +1,4 @@
-//integrantes: César Ricardo Lazcano Valdez, Jesus Cordova, Jesús Soto
+//integrantes: César Ricardo Lazcano Valdez, Jonathan
 //objetivo: Representar los números complejos, demostrando los conocimientos necesarios sobre el tema 
 ///aplicandolos en un programa en el lenguaje Java
 package elementos.numeros;
@@ -137,6 +137,18 @@ public class Complejo {
         return z3;
     }
     
+    /**Retorna un número complejo cuyo resultado es la división
+     * de este NC entre el segundo NC que se manda como parámetro
+     */
+    public Complejo division(Complejo z2){
+        var o = new Complejo(z2.a, z2.b);
+        z2.conjugado();
+        var x = this.producto(z2);
+        var y = o.producto(z2);
+        z2.conjugado();
+        return new Complejo(x.a/y.a, x.b/y.a);
+    }
+    
     /**Función que calcula el valor del argumento de este número complejo
      * Determina en que cuadrante se encuenra, dependiendo del cuadrante en el que este
      * realiza la operación trigonométrica correspondiente
@@ -189,7 +201,34 @@ public class Complejo {
     }
 
     /**Función que obtiene el número complejo y sus partes a partir de una cadena 
-     *          
+     *  Formar un número complejo desde una cadena
+1.	Definir una cadena auxiliar aux y dos flotantes a y b
+2.	Si el tamaño de la cadena es 1 
+a.	Si la cadena contiene “i”
+i.	b = 1.0
+b.	sino
+i.	a = convertir toda la cadena a flotante
+3.	Sino si el tamaño de la cadena es 2
+a.	Si el numero contiene a “i”
+i.	Is el el primer carácter de la cadena es un número
+1.	B = convertir la subcadena que va desde el inicio de la cadena hasta donde se encuentre i 
+ii.	Sino
+1.	B = -1f
+4.	Sino
+a.	Guardar la cadena en un arreglo de caracteres c
+b.	Por cada carácter en c
+i.	Aux = aux + c en posición i
+ii.	Si en la siguiente posición de c (i+1) hay un “i”
+1.	Si aux es igual a “-“ o es igual a “+”
+a.	B = convertir aux +1
+2.	Sino 
+a.	B = convertir solo aux
+iii.	Si no, si en el siguiente carácter se tiene a “-“ o a “+” 
+1.	A =convertir aux
+2.	Aux se reinicia como cadena vacía
+5.	Si a es nulo entonces a del NC = 0 Sino entonces a del NC = a
+6.	Si b es nulo entonces b del NC = 0 Sino entonces b del NC = b
+        
      */
     public void formarNumero(String numero) throws NumberFormatException {
         Float a = null;

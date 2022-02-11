@@ -34,6 +34,7 @@ public class Ventana extends javax.swing.JFrame {
         btn_restar = new javax.swing.JButton();
         btn_producto = new javax.swing.JButton();
         btn_argumento = new javax.swing.JButton();
+        btn_dividir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,6 +99,13 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
+        btn_dividir.setText("Dividir");
+        btn_dividir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_dividirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout numerosComplejosLayout = new javax.swing.GroupLayout(numerosComplejos);
         numerosComplejos.setLayout(numerosComplejosLayout);
         numerosComplejosLayout.setHorizontalGroup(
@@ -113,7 +121,10 @@ public class Ventana extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(z2_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_graficar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(numerosComplejosLayout.createSequentialGroup()
+                        .addComponent(btn_graficar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_dividir))
                     .addGroup(numerosComplejosLayout.createSequentialGroup()
                         .addComponent(btn_modulo)
                         .addGap(18, 18, 18)
@@ -146,7 +157,9 @@ public class Ventana extends javax.swing.JFrame {
                     .addComponent(btn_producto)
                     .addComponent(btn_argumento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_graficar)
+                .addGroup(numerosComplejosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_graficar)
+                    .addComponent(btn_dividir))
                 .addContainerGap(430, Short.MAX_VALUE))
         );
 
@@ -173,7 +186,7 @@ public class Ventana extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -227,7 +240,7 @@ public class Ventana extends javax.swing.JFrame {
         this.z1 = new Complejo(z1_txt.getText());
         var moduloZ1 = this.z1.modulo();
         JOptionPane.showMessageDialog(this, formatoMensaje("Módulo de " + this.z1.getFormaBinomica() + "= "
-                + moduloZ1 ),
+                + moduloZ1),
                 "Módulo de Z1", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_moduloActionPerformed
 
@@ -238,7 +251,7 @@ public class Ventana extends javax.swing.JFrame {
         var z3 = z1.suma(z2);
 
         JOptionPane.showMessageDialog(this, formatoMensaje(z1.getFormaBinomica() + " + "
-                + z2.getFormaBinomica() + " = " + z3.getFormaBinomica()), "Módulo de Z1", JOptionPane.INFORMATION_MESSAGE);
+                + z2.getFormaBinomica() + " = " + z3.getFormaBinomica()), "Suma", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_sumarActionPerformed
 
     private void btn_restarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_restarActionPerformed
@@ -248,7 +261,7 @@ public class Ventana extends javax.swing.JFrame {
         var z3 = z1.resta(z2);
 
         JOptionPane.showMessageDialog(this, formatoMensaje(z1.getFormaBinomica() + " + "
-                + z2.getFormaBinomica() + " = " + z3.getFormaBinomica()), "Módulo de Z1", JOptionPane.INFORMATION_MESSAGE);
+                + z2.getFormaBinomica() + " = " + z3.getFormaBinomica()), "Resta", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_btn_restarActionPerformed
 
@@ -259,18 +272,30 @@ public class Ventana extends javax.swing.JFrame {
         var z3 = z1.producto(z2);
 
         JOptionPane.showMessageDialog(this, formatoMensaje(formatoMensaje(z1.getFormaBinomica() + " X "
-                + z2.getFormaBinomica() + " = " + z3.getFormaBinomica())), "Módulo de Z1", JOptionPane.INFORMATION_MESSAGE);
+                + z2.getFormaBinomica() + " = " + z3.getFormaBinomica())), "Producto", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_btn_productoActionPerformed
 
     private void btn_argumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_argumentoActionPerformed
         // TODO add your handling code here:
         this.planoArgand.dibujarArgumento(z1.argumento());
-        
-        JOptionPane.showMessageDialog(this, formatoMensaje(z1.argumento()+""), 
+
+        JOptionPane.showMessageDialog(this, formatoMensaje(z1.argumento() + ""),
                 "Argumento de Z1", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_btn_argumentoActionPerformed
+
+    private void btn_dividirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dividirActionPerformed
+        // TODO add your handling code here:
+        this.z1 = new Complejo(z1_txt.getText());
+        this.z2 = new Complejo(z2_txt.getText());
+        var z3 = z1.division(z2);
+
+        JOptionPane.showMessageDialog(this, formatoMensaje(formatoMensaje(z1.getFormaBinomica() + " / "
+                + z2.getFormaBinomica() + " = " + z3.getFormaBinomica())), "División", JOptionPane.INFORMATION_MESSAGE);
+
+
+    }//GEN-LAST:event_btn_dividirActionPerformed
 
     private String formatoMensaje(String cad) {
         return "<HTML><h2>" + cad + "</h2><HTML>";
@@ -286,6 +311,7 @@ public class Ventana extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_argumento;
     private javax.swing.JButton btn_conjugado;
+    private javax.swing.JButton btn_dividir;
     private javax.swing.JButton btn_graficar;
     private javax.swing.JButton btn_modulo;
     private javax.swing.JButton btn_producto;
