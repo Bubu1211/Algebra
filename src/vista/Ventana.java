@@ -1,15 +1,15 @@
 package vista;
 
 import elementos.numeros.Complejo;
-import elementos.graficos.PlanoCartesiano;
+import elementos.graficos.PlanoArgand;
 import javax.swing.JOptionPane;
 
 public class Ventana extends javax.swing.JFrame {
 
-    private PlanoCartesiano planoArgand;
+    private PlanoArgand planoArgand;
     private Complejo z1;    ///Para manejar los numeros complejos
     private Complejo z2;    ///Se usará una lista de Complejos
-    
+
     public Ventana() {
         z1 = new Complejo();
         z2 = new Complejo();
@@ -32,6 +32,8 @@ public class Ventana extends javax.swing.JFrame {
         btn_conjugado = new javax.swing.JButton();
         btn_sumar = new javax.swing.JButton();
         btn_restar = new javax.swing.JButton();
+        btn_producto = new javax.swing.JButton();
+        btn_argumento = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,13 +84,27 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
+        btn_producto.setText("Producto");
+        btn_producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_productoActionPerformed(evt);
+            }
+        });
+
+        btn_argumento.setText("Argumento");
+        btn_argumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_argumentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout numerosComplejosLayout = new javax.swing.GroupLayout(numerosComplejos);
         numerosComplejos.setLayout(numerosComplejosLayout);
         numerosComplejosLayout.setHorizontalGroup(
             numerosComplejosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(numerosComplejosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(numerosComplejosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(numerosComplejosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(numerosComplejosLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -96,18 +112,21 @@ public class Ventana extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(z2_txt))
+                        .addComponent(z2_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_graficar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(numerosComplejosLayout.createSequentialGroup()
-                        .addComponent(btn_graficar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(btn_modulo)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_conjugado)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_sumar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_restar)
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addComponent(btn_conjugado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_sumar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_restar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_producto)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_argumento)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         numerosComplejosLayout.setVerticalGroup(
             numerosComplejosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,12 +139,15 @@ public class Ventana extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(numerosComplejosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_graficar)
                     .addComponent(btn_modulo)
                     .addComponent(btn_conjugado)
                     .addComponent(btn_sumar)
-                    .addComponent(btn_restar))
-                .addContainerGap(418, Short.MAX_VALUE))
+                    .addComponent(btn_restar)
+                    .addComponent(btn_producto)
+                    .addComponent(btn_argumento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_graficar)
+                .addContainerGap(430, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Números complejos", numerosComplejos);
@@ -136,11 +158,11 @@ public class Ventana extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 552, Short.MAX_VALUE)
+            .addGap(0, 605, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 528, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Calculadora NC", jPanel1);
@@ -151,7 +173,7 @@ public class Ventana extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -169,23 +191,25 @@ public class Ventana extends javax.swing.JFrame {
         int xp, xn, yp, yn;
         xp = xn = yp = yn = 0;
         this.z1 = new Complejo(this.z1_txt.getText());
-        
-        if(z1.getA()>=0){
-            xp = (int)z1.getA() + 1;
+
+        if (z1.getA() >= 0) {
+            xp = (int) z1.getA() + 1;
             xn = -2;
-        }else{
-            xn = (int)z1.getA() - 1;
+        } else {
+            xn = (int) z1.getA() - 1;
             xp = 2;
         }
-        
-        if(z1.getB()>=0){
-            yp = (int) z1.getB() +1;
+
+        if (z1.getB() > 0) {
+            yp = (int) z1.getB() + 1;
             yn = -2;
-        }else{
-            yn = (int) z1.getB() -1 ;
+        } else if (z1.getB() == 0) {
+            yn = yp = 0;
+        } else {
+            yn = (int) z1.getB() - 1;
             yp = 2;
         }
-        
+
         this.planoArgand.dibujarNComplejo(z1, xp, xn, yp, yn);
     }//GEN-LAST:event_btn_graficarActionPerformed
 
@@ -194,7 +218,7 @@ public class Ventana extends javax.swing.JFrame {
         this.z1 = new Complejo(z1_txt.getText());
         var formaBinomica = this.z1.getFormaBinomica();
         var complemento = this.z1.conjugado();
-        JOptionPane.showMessageDialog(this, "Complemento de "+formaBinomica+ "= "+complemento ,
+        JOptionPane.showMessageDialog(this, formatoMensaje(formaBinomica + "= " + complemento),
                 "Complemento de Z1", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_conjugadoActionPerformed
 
@@ -202,7 +226,8 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.z1 = new Complejo(z1_txt.getText());
         var moduloZ1 = this.z1.modulo();
-        JOptionPane.showMessageDialog(this, "Módulo de "+this.z1.getFormaBinomica()+ "= "+moduloZ1 ,
+        JOptionPane.showMessageDialog(this, formatoMensaje("Módulo de " + this.z1.getFormaBinomica() + "= "
+                + moduloZ1 ),
                 "Módulo de Z1", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_moduloActionPerformed
 
@@ -211,9 +236,9 @@ public class Ventana extends javax.swing.JFrame {
         this.z1 = new Complejo(z1_txt.getText());
         this.z2 = new Complejo(z2_txt.getText());
         var z3 = z1.suma(z2);
-        
-        JOptionPane.showMessageDialog(this, z1.getFormaBinomica() + " + " + 
-                z2.getFormaBinomica() +" = "+z3.getFormaBinomica(), "Módulo de Z1", JOptionPane.INFORMATION_MESSAGE);
+
+        JOptionPane.showMessageDialog(this, formatoMensaje(z1.getFormaBinomica() + " + "
+                + z2.getFormaBinomica() + " = " + z3.getFormaBinomica()), "Módulo de Z1", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btn_sumarActionPerformed
 
     private void btn_restarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_restarActionPerformed
@@ -221,23 +246,49 @@ public class Ventana extends javax.swing.JFrame {
         this.z1 = new Complejo(z1_txt.getText());
         this.z2 = new Complejo(z2_txt.getText());
         var z3 = z1.resta(z2);
-        
-        JOptionPane.showMessageDialog(this, z1.getFormaBinomica() + " + " + 
-                z2.getFormaBinomica() +" = "+z3.getFormaBinomica(), "Módulo de Z1", JOptionPane.INFORMATION_MESSAGE);
-    
+
+        JOptionPane.showMessageDialog(this, formatoMensaje(z1.getFormaBinomica() + " + "
+                + z2.getFormaBinomica() + " = " + z3.getFormaBinomica()), "Módulo de Z1", JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_btn_restarActionPerformed
-    
-    public void addPlano(){
-        this.planoArgand = new PlanoCartesiano();
+
+    private void btn_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_productoActionPerformed
+        // TODO add your handling code here:
+        this.z1 = new Complejo(z1_txt.getText());
+        this.z2 = new Complejo(z2_txt.getText());
+        var z3 = z1.producto(z2);
+
+        JOptionPane.showMessageDialog(this, formatoMensaje(formatoMensaje(z1.getFormaBinomica() + " X "
+                + z2.getFormaBinomica() + " = " + z3.getFormaBinomica())), "Módulo de Z1", JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_btn_productoActionPerformed
+
+    private void btn_argumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_argumentoActionPerformed
+        // TODO add your handling code here:
+        this.planoArgand.dibujarArgumento(z1.argumento());
+        
+        JOptionPane.showMessageDialog(this, formatoMensaje(z1.argumento()+""), 
+                "Argumento de Z1", JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_btn_argumentoActionPerformed
+
+    private String formatoMensaje(String cad) {
+        return "<HTML><h2>" + cad + "</h2><HTML>";
+    }
+
+    public void addPlano() {
+        this.planoArgand = new PlanoArgand();
         var bounds = this.btn_graficar.getBounds();
-        this.planoArgand.setBounds(0,bounds.y+20+bounds.height, 500,400);
+        this.planoArgand.setBounds(0, bounds.y + 20 + bounds.height, 500, 400);
         this.numerosComplejos.add(this.planoArgand);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_argumento;
     private javax.swing.JButton btn_conjugado;
     private javax.swing.JButton btn_graficar;
     private javax.swing.JButton btn_modulo;
+    private javax.swing.JButton btn_producto;
     private javax.swing.JButton btn_restar;
     private javax.swing.JButton btn_sumar;
     private javax.swing.JLabel jLabel2;

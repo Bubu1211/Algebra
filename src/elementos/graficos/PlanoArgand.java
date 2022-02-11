@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 
-public class PlanoCartesiano extends javax.swing.JPanel {
+public class PlanoArgand extends javax.swing.JPanel {
 
     private int anchoPlano;
     private int altoPlano;
@@ -16,8 +16,10 @@ public class PlanoCartesiano extends javax.swing.JPanel {
     private Point puntoII;
     private Point puntoID;
     private Complejo z;
+    private boolean graficarArgumento;
+    private double argumento;
     
-    public PlanoCartesiano() {
+    public PlanoArgand() {
         initComponents();
         setBounds(0,0,500,400);
         this.anchoPlano = this.getWidth()-40;
@@ -29,6 +31,7 @@ public class PlanoCartesiano extends javax.swing.JPanel {
         this.unidad = 0;
         xn = xp = yn = yp = 0;
         this.z = null;
+        this.graficarArgumento = false;
     }
 
     @SuppressWarnings("unchecked")
@@ -68,7 +71,11 @@ public class PlanoCartesiano extends javax.swing.JPanel {
         
         //Obtenemos la representación en pixeles de una unidad en este plano
         try{//Puede presentar errors si no se han asignado valores a las distancias en x & y
-            this.unidad = this.altoPlano/(Math.abs(yp)+Math.abs(yn));
+            if(yp == 0 && yn == 0){
+                this.unidad = this.anchoPlano/(Math.abs(xp)+Math.abs(xn));
+            }else{
+                this.unidad = this.altoPlano/(Math.abs(yp)+Math.abs(yn));
+            }
         }catch(ArithmeticException e){
             this.unidad = 0;
         }
@@ -77,7 +84,6 @@ public class PlanoCartesiano extends javax.swing.JPanel {
         if(unidad != 0){
             ///Se obtiene el punto de origen del plano usando la unidad obtenida
             origen = new Point(puntoSI.x + (unidad*Math.abs(xn)), puntoSI.y + (unidad*yp));
-        }else{
         }
         g.setColor(java.awt.Color.BLACK);
         ///Se dibuja el eje de las abscisas negativo -x
@@ -89,6 +95,7 @@ public class PlanoCartesiano extends javax.swing.JPanel {
         ///Se dibuja el eje de las ordenadas positivo +y
         g.drawLine(origen.x, origen.y, origen.x, puntoSD.y);
         
+        g.setColor(java.awt.Color.DARK_GRAY);
         ///Se dibuja el vector representativo de z
         if(z != null){ ///si el número complejo tiene valor asignado se dibuja
             ///Se dibuja una línea desde el origen hacia el par ordenado de z
@@ -96,7 +103,6 @@ public class PlanoCartesiano extends javax.swing.JPanel {
             g.drawLine(origen.x, origen.y, puntoZ.x, puntoZ.y);
             g.drawString(z.getParOrdenado(), puntoZ.x, puntoZ.y);
         }
-        g.setColor(java.awt.Color.DARK_GRAY);
         
         g.setColor(java.awt.Color.BLUE);
         /*Dibujamos las representaciones de las unidades en el plano
@@ -107,35 +113,34 @@ public class PlanoCartesiano extends javax.swing.JPanel {
         int sum = 0;
         for(int i = 1; i<= xp; i++){
             sum = unidad * i; //Obtiene la unidad desplazada que se va a recorrer
-            g.drawLine(origen.x + sum, origen.y-10, origen.x + sum, origen.y+10); //dibuja la línea perpendicular
+            g.drawLine(origen.x + sum, puntoSD.y, origen.x + sum, puntoID.y); //dibuja la línea perpendicular
             g.drawString(i+"", origen.x + sum, origen.y+20); //dibuja el número en su correspondiente lugar
         }
         ///linea de unidades del eje x negativo 
         sum = 0;
-        for(int i = 0; i<=Math.abs(xn); i++){
+        for(int i = 1; i<=Math.abs(xn); i++){
             sum = unidad*i;
-            g.drawLine(origen.x - sum, origen.y-10, origen.x - sum, origen.y+10);
+            g.drawLine(origen.x - sum, puntoID.y, origen.x - sum, puntoSD.y);
             g.drawString("-"+i, origen.x - sum, origen.y+20); //dibuja el número en su correspondiente lugar
         }
         ///Líneas de unidades del eje y positivo
         sum = 0;
         for(int i = 1; i<=yp; i++){
             sum = unidad*i;
-            g.drawLine(origen.x -10, origen.y- sum, origen.x +10, origen.y- sum);
+            g.drawLine(puntoSI.x, origen.y- sum, puntoSD.x, origen.y- sum);
             g.drawString(i+"i", origen.x -30, origen.y- sum+10); //dibuja el número en su correspondiente lugar
         }
         ///Lineas de unidades del eje y negativo
         sum = 0;
         for(int i = 1; i<=Math.abs(yn); i++){
             sum = unidad*i;
-            g.drawLine(origen.x +10 , origen.y+sum, origen.x - 10, origen.y+sum);
+            g.drawLine(puntoII.x , origen.y+sum, puntoID.x, origen.y+sum);
             g.drawString("-"+i+"i",origen.x - 20, origen.y+sum+10); //dibuja el número en su correspondiente lugar
         }
         
-        g.setColor(java.awt.Color.GREEN);
-        for(int i = 0; i<100; i++){
-            g.drawLine(i, i, i, i);
-            
+        g.setColor(java.awt.Color.BLACK);
+        if(graficarArgumento){
+            g.drawArc(origen.x-75, origen.y-75, 150, 150, 0, (int)this.argumento);
         }
     }
 
@@ -153,6 +158,12 @@ public class PlanoCartesiano extends javax.swing.JPanel {
         this.yp = yp;
         this.yn = yn;
         this.z = z;
+        repaint();
+    }
+    
+    public void dibujarArgumento(double argumento){
+        this.argumento = argumento;
+        this.graficarArgumento = !this.graficarArgumento;
         repaint();
     }
     
