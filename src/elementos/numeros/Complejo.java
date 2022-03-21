@@ -4,7 +4,6 @@
 package elementos.numeros;
 
 import java.text.DecimalFormat;  ///librería para formatear números
-import java.util.ArrayList;
 
 //esta clase se encarga de representar objetos de números complejos
 public class Complejo {
@@ -28,7 +27,6 @@ public class Complejo {
     }
 
     //Setters and getters
-    
     public float getA() {
         return a;
     }
@@ -45,7 +43,8 @@ public class Complejo {
         this.b = b;
     }
 
-    /**@Return Retorna una cadena con la forma binómica de este número
+    /**
+     * @return Retorna una cadena con la forma binómica de este número
      */
     public String getFormaBinomica() {
 
@@ -55,40 +54,43 @@ public class Complejo {
             if (b == 1) {
                 return "i";
             } else { ///EL caso contrario es que tenga valor b pero a no
-                return formato(b) + "i";
+                return Util.formato(b) + "i";
             }
-        } 
-        ///Si a tiene valor diferente de 0 entonces b también podría valer 0
+        } ///Si a tiene valor diferente de 0 entonces b también podría valer 0
         else if (b == 0) {
-            return formato(a); ///De ser así solo se debe representar la parte real
-        } 
-        ///En caso de que tyanto a como b tengan valor
+            return Util.formato(a); ///De ser así solo se debe representar la parte real
+        } ///En caso de que tyanto a como b tengan valor
         else {
             ///Si b es negativo se conserva el signo negativo 
             if (b < 0) {
-                return formato(a) + "" + formato(b) + "i";
-            } else {
-                return formato(a) + "+" + formato(b) + "i";
+                return Util.formato(a) + "" + Util.formato(b) + "i";
+            } 
+            else {
+                return Util.formato(a) + "+" + Util.formato(b) + "i";
             }
         }
     }
 
     /**
-     * Representa las coordenadas en el plano de argand, unicamente en su representación
-     * como cadena
-     * @Return el par ordenado representante de este número complejo
+     * Representa las coordenadas en el plano de argand, unicamente en su
+     * representación como cadena
+     *
+     * @return el par ordenado representante de este número complejo
      */
     public String getParOrdenado() {
-        return "(" + formato(a) + "," + formato(b) + "i)";
+        return "(" + Util.formato(a) + "," + Util.formato(b) + "i)";
     }
 
-    /*Calcula el conjugado de este número complejo
+    /*12/02/22
+    *Calcula el conjugado de este número complejo
     *El complemento de un N. complejo es el mismo con la parte imaginaria con signo contrario
     *la función solo aplica el complemento al número modificandolo
-     */
-    public String conjugado() {
-        this.b = -this.b; //Se voltea obteniendo el reciproco
-        return this.getFormaBinomica(); //Para voler a formarse 
+    *25/02/22
+    *Se cambia la implementacion del método, ahora regresa un número complejo
+    *que representa el conujugado de este númer SIN AFECTAR a este número
+    */
+    public Complejo conjugado() {
+        return new Complejo(this.getA(), -this.getB());
     }
 
     /*Calcula el modulo de este número complejo 
@@ -103,8 +105,8 @@ public class Complejo {
     /*Función que dado otro número complejo retorna un número complejp 
     *cuyo valor es la suma de este y el dado
      */
-    public Complejo suma(Complejo z2) {
-        var z3 = new Complejo();
+    public Complejo add(Complejo z2) {
+        Complejo z3 = new Complejo();
 
         z3.setA(this.getA() + z2.getA()); //una buena práctica es usar setter and getters
         z3.setB(this.getB() + z2.getB());
@@ -115,161 +117,161 @@ public class Complejo {
     /*Función que dado otro número complejo retorna un número complejp 
     *cuyo valor es la resta de este y el dado
      */
-    public Complejo resta(Complejo z2) {
-        var z3 = new Complejo();
+    public Complejo sub(Complejo z2) {
+        Complejo z3 = new Complejo();
 
         z3.setA(this.getA() - z2.getA()); //una buena práctica es usar setter and getters
         z3.setB(this.getB() - z2.getB());
 
         return z3;
     }
-    
-    /**Función que calcula el producto de este número complejo y de 
-     * otro que se pasa como argumento
-     * @param z2
+
+    /**
+     * Función que calcula el producto de este número complejo y de otro que se
+     * pasa como argumento
+     *
+     * @param z2 otro objeto número complejo que representa el segundo factor
+     * del producto
+     * @return Un número complejo z3 que es el resultado del producto
      */
-    public Complejo producto(Complejo z2){
+    public Complejo mul(Complejo z2) {
         Complejo z3 = new Complejo();
-        
-        z3.setA( this.getA() * z2.getA() + this.getB()*z2.getB()*-1);
-        z3.setB(this.getA() * z2.getB() + this.getB()*z2.getA());
-        
+
+        z3.setA(this.getA() * z2.getA() - this.getB() * z2.getB());
+        z3.setB(this.getA() * z2.getB() + this.getB() * z2.getA());
+
         return z3;
     }
-    
-    /**Retorna un número complejo cuyo resultado es la división
-     * de este NC entre el segundo NC que se manda como parámetro
+
+    /**
+     * Retorna un número complejo cuyo resultado es la división de este NC entre
+     * el segundo NC que se manda como parámetro
+     *
+     * @param z2 otro número complejo que representa el denominador
+     * @return un número complejo con el z resultado
      */
-    public Complejo division(Complejo z2){
-        var o = new Complejo(z2.a, z2.b);
+    public Complejo div(Complejo z2) {
+        Complejo o = new Complejo(z2.a, z2.b);
         z2.conjugado();
-        var x = this.producto(z2);
-        var y = o.producto(z2);
+        Complejo x = this.mul(z2);
+        Complejo y = o.mul(z2);
         z2.conjugado();
-        return new Complejo(x.a/y.a, x.b/y.a);
-    }
-    
-    /**Función que calcula el valor del argumento de este número complejo
-     * Determina en que cuadrante se encuenra, dependiendo del cuadrante en el que este
-     * realiza la operación trigonométrica correspondiente
-     * Se considera que el argumento solo se puede calcular cuando a y b son diferentes de 0
-     * Dentro del cálculo se tiene que hacer la conversión de radianes a grados
-     * @return el valor del ángulo que forma su vector
-     */
-    public double argumento(){
-        double a = 0.0f;
-        float ax = Math.abs(this.a);
-        float bx = Math.abs(this.b);
-        
-        ///Primer cuadrante
-        if(this.a > 0 && this.b > 0)
-            a = Math.atan(bx/ax)* 180/Math.PI;
-        
-        ///Segundo cuadrante
-        else if(this.a <0 && this.b > 0)
-            a = 90 + (Math.atan(bx/ax) * 180/Math.PI);
-        
-        ///tercer cuadrante
-        else if(this.a <0 && this.b < 0)
-            a = 180 + (Math.atan(bx/ax) * 180/Math.PI);
-        
-        ///cuarto cuadrante
-        else if(this.a > 0 && this.b < 0)
-            a = 270 + (Math.atan(ax/bx)* 180/Math.PI);
-        
-        return a;
-    }
-    
-    /**Se calcula la división entre dos Nímeros complejos donde este es el numerador 
-     * y el parametro es el denominador
-     * Primero se obtiene el conjugado de z2, luego se multiplican el numerador por el conjugadoZ2
-     * al numero resultado su parte real es el número real del resultado del producto del numerador entre el numero real
-     * del denominador
-     */
-    
-    //esta función tiene el objetivo de formatear las partes del número complejo dependiendo de si se trata de un número
-    //entero o uno decimal
-    private String formato(float x) {
-        String patron = "";
-        if (x % 1 == 0) {
-            patron = "#";
-        } else {
-            patron = "#.###";
-        }
-        DecimalFormat formato = new DecimalFormat(patron);
-        return formato.format(x);
+        return new Complejo(x.a / y.a, x.b / y.a);
     }
 
-    /**Función que obtiene el número complejo y sus partes a partir de una cadena 
-     *  Formar un número complejo desde una cadena
-1.	Definir una cadena auxiliar aux y dos flotantes a y b
-2.	Si el tamaño de la cadena es 1 
-a.	Si la cadena contiene “i”
-i.	b = 1.0
-b.	sino
-i.	a = convertir toda la cadena a flotante
-3.	Sino si el tamaño de la cadena es 2
-a.	Si el numero contiene a “i”
-i.	Is el el primer carácter de la cadena es un número
-1.	B = convertir la subcadena que va desde el inicio de la cadena hasta donde se encuentre i 
-ii.	Sino
-1.	B = -1f
-4.	Sino
-a.	Guardar la cadena en un arreglo de caracteres c
-b.	Por cada carácter en c
-i.	Aux = aux + c en posición i
-ii.	Si en la siguiente posición de c (i+1) hay un “i”
-1.	Si aux es igual a “-“ o es igual a “+”
-a.	B = convertir aux +1
-2.	Sino 
-a.	B = convertir solo aux
-iii.	Si no, si en el siguiente carácter se tiene a “-“ o a “+” 
-1.	A =convertir aux
-2.	Aux se reinicia como cadena vacía
-5.	Si a es nulo entonces a del NC = 0 Sino entonces a del NC = a
-6.	Si b es nulo entonces b del NC = 0 Sino entonces b del NC = b
+//    public float sqrt(int m){
+//        
+//    }
+    public float im() {
+        return this.getB();
+    }
+
+    public void pow(int n) {
+        Complejo aux;
+        Complejo aux1 = new Complejo(this.getA(), this.getB());
+        for (int i = 1; i < n; i++) {
+            aux = this.mul(aux1);
+            this.setA(aux.getA());
+            this.setB(aux.getB());
+        }
+    }
+    
+    public void raices(int n){
         
+    }
+
+    /**
+     * Función que calcula el valor del argumento de este número complejo
+     * Determina en que cuadrante se encuenra, dependiendo del cuadrante en el
+     * que este realiza la operación trigonométrica correspondiente Se considera
+     * que el argumento solo se puede calcular cuando a y b son Sdiferentes de 0
+     * Dentro del cálculo se tiene que hacer la conversión de radianes a grados
+     *
+     * @return el valor del ángulo que forma su vector
      */
-    public void formarNumero(String numero) throws NumberFormatException {
-        Float a = null;
-        Float b = null;
+    public double argumento() {
+        double x = 0.0f;
+        float ax = Math.abs(this.a);
+        float bx = Math.abs(this.b);
+
+        ///Primer cuadrante
+        if (this.a > 0 && this.b > 0) {
+            x = Math.atan(bx / ax) * 180 / Math.PI;
+        } ///Segundo cuadrante
+        else if (this.a < 0 && this.b > 0) {
+            x = 90 + (Math.atan(ax / bx) * 180 / Math.PI);
+        } ///tercer cuadrante
+        else if (this.a < 0 && this.b < 0) {
+            x = 180 + (Math.atan(bx / ax) * 180 / Math.PI);
+        } ///cuarto cuadrante
+        else if (this.a > 0 && this.b < 0) {
+            x = 270 + (Math.atan(ax / bx) * 180 / Math.PI);
+        }
+        return x;
+    }
+
+
+    /**
+     * Función que obtiene el número complejo y sus partes a partir de una
+     * cadena Formar un número complejo desde una cadena 1.	Definir una cadena
+     * auxiliar aux y dos flotantes a y b 2.	Si el tamaño de la cadena es 1 a.
+     * Si la cadena contiene “i” i.	b = 1.0 b.	sino i.	a = convertir toda la
+     * cadena a flotante 3.	Sino si el tamaño de la cadena es 2 a.	Si el numero
+     * contiene a “i” i.	Is el el primer carácter de la cadena es un número 1.	B
+     * = convertir la subcadena que va desde el inicio de la cadena hasta donde
+     * se encuentre i ii.	Sino 1.	B = -1f 4.	Sino a.	Guardar la cadena en un
+     * arreglo de caracteres c b.	Por cada carácter en c i.	Aux = aux + c en
+     * posición i ii.	Si en la siguiente posición de c (i+1) hay un “i” 1.	Si
+     * aux es igual a “-“ o es igual a “+” a.	B = convertir aux +1 2.	Sino a.	B
+     * = convertir solo aux iii.	Si no, si en el siguiente carácter se tiene a
+     * “-“ o a “+” 1.	A =convertir aux 2.	Aux se reinicia como cadena vacía 5.
+     * Si a es nulo entonces a del NC = 0 Sino entonces a del NC = a 6.	Si b es
+     * nulo entonces b del NC = 0 Sino entonces b del NC = b
+     *
+     */
+    private void formarNumero(String numero) throws NumberFormatException {
+        Float ax = null;
+        Float bx = null;
         String aux = "";
-        if (numero.length() == 1) { //2
+        if (numero.length() == 1) {
+            //2
             if (numero.contains("i")) {
-                b = 1f;
+                bx = 1f;
             } else {
-                a = Float.parseFloat(numero);
+                ax = Float.parseFloat(numero);
             }
-        } else if (numero.length() == 2) { //3
+        }
+        if (numero.length() == 1) {
+            //3
             if (numero.contains("i")) {
                 if (Character.isDigit(numero.charAt(0))) {
-                    b = Float.parseFloat(numero.substring(0, numero.indexOf("i")));
+                    bx = Float.parseFloat(numero.substring(0, numero.indexOf("i")));
                 } else {
-                    b = -1f;
+                    bx = -1f;
                 }
             } else {
-                a = Float.parseFloat(numero);
+                ax = Float.parseFloat(numero);
             }
         } else {
-            var c = numero.toCharArray();
+            char[] c = numero.toCharArray();
             for (int i = 0; i < c.length - 1; i++) {
                 aux = aux + c[i];
                 if (c[i + 1] == 'i') {
                     if (aux.equals("-") || aux.equals("+")) {
-                        b = Float.parseFloat(aux+1);
+                        bx = Float.parseFloat(aux + 1);
                     } else {
-                        b = Float.parseFloat(aux);
+                        bx = Float.parseFloat(aux);
                     }
                     aux = "";
                 } else if (c[i + 1] == '-' || c[i + 1] == '+') {
-                    a = Float.parseFloat(aux);
+                    ax = Float.parseFloat(aux);
                     aux = "";
                 }
             }
         }
-
-        this.a = a == null ? 0 : a;
-        this.b = b == null ? 0 : b;
+        this.a = ax == null ? 0 : ax;
+        this.b = bx == null ? 0 : bx;
     }
+
 
 }

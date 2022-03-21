@@ -7,6 +7,7 @@ package elementos.graficos;
 import elementos.numeros.Complejo;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
 
 /**Esta clase tiene el objetivo de representar el plano de Argand a través d la librería Grpahics
  * Dibujar se refiere al acto de realizar la graficacion por computadora con la lib java.awt.Graphics
@@ -25,7 +26,8 @@ public class PlanoArgand extends javax.swing.JPanel {
     private Point puntoID;
     private Complejo z; ///Es el número complejo que se va a gráficar 
     private boolean graficarArgumento; //Indica si se dibuja o no el argumento
-    private double argumento;D
+    private double argumento;
+    private ArrayList<Point> puntos;
     
     public PlanoArgand() {
         initComponents();
@@ -42,6 +44,7 @@ public class PlanoArgand extends javax.swing.JPanel {
         xn = xp = yn = yp = 0;
         this.z = null;
         this.graficarArgumento = false;
+        this.puntos = new ArrayList<>();
     }
 
     @SuppressWarnings("unchecked")
@@ -51,6 +54,11 @@ public class PlanoArgand extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jLabel1.setText("Plano Argand");
 
@@ -70,6 +78,18 @@ public class PlanoArgand extends javax.swing.JPanel {
                 .addGap(0, 384, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        int xMouse = evt.getX();
+        int yMouse = evt.getY();
+        
+        System.out.println("x en panel: "+xMouse);
+        System.out.println("y en panel: "+yMouse);
+        
+        this.puntos.add(new Point(xMouse, yMouse));
+        repaint();
+    }//GEN-LAST:event_formMouseClicked
 
     /**Este método sobreescrito realiza los dibujos, con el método repaint se vuelve a llamar
      * Con ayuda de la clase Point quye básicamente es una clase que representa un par ordenado, se 
@@ -120,7 +140,7 @@ public class PlanoArgand extends javax.swing.JPanel {
         ///Se dibuja el vector representativo de z
         if(z != null){ ///si el número complejo tiene valor asignado se dibuja
             ///Se dibuja una línea desde el origen hacia el par ordenado de z
-            var puntoZ = new Point(origen.x + (unidad*(int)z.getA()),origen.y- (unidad*(int)z.getB()));
+            Point puntoZ = new Point(origen.x + (unidad*(int)z.getA()),origen.y- (unidad*(int)z.getB()));
             g.drawLine(origen.x, origen.y, puntoZ.x, puntoZ.y);
             g.drawString(z.getParOrdenado(), puntoZ.x, puntoZ.y);
         }
@@ -162,6 +182,10 @@ public class PlanoArgand extends javax.swing.JPanel {
         g.setColor(java.awt.Color.BLACK);
         if(graficarArgumento){
             g.drawArc(origen.x-75, origen.y-75, 150, 150, 0, (int)this.argumento);
+        }
+        
+        for(Point p : this.puntos){
+            g.drawLine(origen.x, origen.y, p.x, p.y);
         }
     }
 
