@@ -312,6 +312,14 @@ public class Matriz {
         }
     }
 
+    public void createMatrizIdentidad() {
+        ///Matriz Triangular superior
+        clear();
+        for (int i= 0; i < columnas; i++) {
+            a[i][i] = 1;
+        }
+    }
+    
     public void createMatrizTS() {
         int aleatorio = 0;
         clear();

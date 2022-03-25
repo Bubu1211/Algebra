@@ -58,4 +58,14 @@ public class Linea extends Cuerpo {
         inicio.y = (int) c.getValor(1, 0);
     }
 
+    @Override
+    public void escalar(float dx, float dy) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void trasladar(float dx, float dy) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

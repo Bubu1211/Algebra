@@ -3,9 +3,6 @@ package elementos.graficos.cuerpos;
 import elementos.matrices.Matriz;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.function.Consumer;
-
 /**
  * @author Bubu
  */
@@ -39,14 +36,42 @@ public class Poligono extends Cuerpo {
 
         Matriz nvaPosicion = new Matriz(2, 1);
         matrizRotacion(angulo);
-
+        int i = 1; ///Para mostrar el ínidce del vertice
         for (Point e : vertices) {
-            System.out.println("V= "+e.x + ", "+e.y);
             setPosicion(e.x, e.y);
             nvaPosicion = transformacion.mul(posicion);
             e.x = nvaPosicion.getValor(0, 0);
             e.y = nvaPosicion.getValor(1, 0);
-            System.out.println("V= "+e.x + ", "+e.y);
+            i++;
         }
     }
+
+    @Override
+    public void escalar(float ex, float ey) {
+        Matriz nvaPosicion = new Matriz(3, 1);
+        matrizEscala(ex, ey);
+        int i = 1; ///Para mostrar el ínidce del vertice
+        for (Point e : vertices) {
+            setPosicion3(e.x, e.y);
+            nvaPosicion = transformacion.mul(posicion);
+            e.x = nvaPosicion.getValor(0, 0);
+            e.y = nvaPosicion.getValor(1, 0);
+            i++;
+        }
+    }
+
+    @Override
+    public void trasladar(float dx, float dy) {
+        Matriz nvaPosicion = new Matriz(3, 1);
+        matrizTraslacion(dx, dy);
+        int i = 1; ///Para mostrar el ínidce del vertice
+        for (Point e : vertices) {
+            setPosicion3(e.x, e.y);
+            nvaPosicion = transformacion.mul(posicion);
+            e.x = nvaPosicion.getValor(0, 0);
+            e.y = nvaPosicion.getValor(1, 0);
+            i++;
+        }
+    }
+    
 }

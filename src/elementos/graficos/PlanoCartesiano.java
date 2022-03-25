@@ -6,13 +6,14 @@
 package elementos.graficos;
 
 import elementos.graficos.cuerpos.Eje;
-import elementos.graficos.cuerpos.Linea;
 import elementos.graficos.cuerpos.Point;
 import elementos.graficos.cuerpos.Poligono;
+import elementos.graficos.cuerpos.Cuerpo;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import elementos.numeros.Util;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,6 +25,12 @@ public class PlanoCartesiano extends javax.swing.JPanel {
     private Dibujo dibujo;
     private int pixeles; //Cantidad de pixeles que representan a la escala
     private float escala; ///número que representa  cada división del plano 
+    private ArrayList<Cuerpo> cuerpos;
+    
+    private static final int MAX_PX = 60;
+    private static final int MIN_PX = 20;
+    private static final int INICIAL_PX = 35;
+    
 
     /**
      * Creates new form Graficadora
@@ -31,7 +38,8 @@ public class PlanoCartesiano extends javax.swing.JPanel {
     public PlanoCartesiano() {
         initComponents();
         escala = 1f;
-        pixeles = 25;
+        pixeles = INICIAL_PX;
+        
     }
 
     public void pintarEjes(Graphics2D g) {
@@ -61,29 +69,25 @@ public class PlanoCartesiano extends javax.swing.JPanel {
         g.setStroke(new BasicStroke(1f));
         
         for(int i = 0; i<sizeX; i++){
+            g.drawLine((int)(origen.x-i*pixeles), 0,(int) (origen.x-i*pixeles), tamy);
             g.drawLine((int)(i*pixeles + origen.x), 0,(int) (i*pixeles + origen.x), tamy);
             g.drawString(""+Util.formato(escala*i), (int)(i*pixeles + origen.x),(int) origen.y+15);
-        }
-        
-        for(int i = 0; i<sizeY; i++){
-            g.drawLine(0, (int)(i*pixeles + origen.y), tamx, (int)(i*pixeles + origen.y));
-            g.drawString(""+Util.formato(escala*i),(int) origen.x-15, (int)(origen.y-i*pixeles));
-        }
-        
-        for(int i = 0; i<sizeX; i++){
-            g.drawLine((int)(origen.x-i*pixeles), 0,(int) (origen.x-i*pixeles), tamy);
             g.drawString(""+Util.formato(escala*-i), (int)(origen.x - i*pixeles ),(int) origen.y+15);
         }
         
         for(int i = 0; i<sizeY; i++){
+            g.drawLine(0, (int)(i*pixeles + origen.y), tamx, (int)(i*pixeles + origen.y));
             g.drawLine(0, (int)(origen.y-i*pixeles), tamx, (int)(origen.y-i*pixeles));
+            g.drawString(""+Util.formato(escala*i),(int) origen.x-15, (int)(origen.y-i*pixeles));
         }
     }
 
     @Override
     public void paint(Graphics g2) {
         
+        
         Graphics2D g = (Graphics2D) g2;
+        g.clearRect(0,0,getWidth(), getHeight());
         
         pintarEjes(g);
         g.setColor(java.awt.Color.BLUE);
@@ -95,14 +99,28 @@ public class PlanoCartesiano extends javax.swing.JPanel {
 //        dibujo.paint(a);
 
         Poligono p = new Poligono();
-        p.setGrosor(3);
-        p.add(6, 9);
-        p.add(9, 6);
-        p.add(6, 3);
-        p.add(3, 6);
+        p.setGrosor(3); 
+        p.add(2,0);///Vértice 0
+        p.add(4,2);///Vértice 1
+        p.add(4,4);///Vértice 2
+        p.add(2,6);///Vértice 3
+        p.add(0,4);///Vértice 4
+        p.add(0,2);///Vértice 5
+        p.add(2,3);///Vértice 6
+        p.add(2,3);///Vértice 6
+        p.add(2,4);///Vértice 7
 
         dibujo.paint(p);
-        p.rotar(120);
+        p.rotar(90);  ///Ángulo de rotación 
+        g.setColor(java.awt.Color.ORANGE);
+        dibujo.paint(p);
+        
+        p.escalar(-0.5f, -0.5f);
+        g.setColor(java.awt.Color.RED);
+        dibujo.paint(p);
+        
+        p.trasladar(3, 3);
+        g.setColor(java.awt.Color.RED);
         dibujo.paint(p);
     }
 
@@ -115,17 +133,51 @@ public class PlanoCartesiano extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                formMouseWheelMoved(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 398, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 298, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
+       // TODO add your handling code here:
+       System.out.println("Rueda del raton "+evt.getWheelRotation());
+       int rueda = evt.getWheelRotation();
+       pixeles += (-rueda);
+       System.out.println("Px= "+pixeles);
+       System.out.println("Escala= "+escala);
+       
+       ///Rueda del ratón hacia arriba, se hace el aumento de la gráfica
+       if(rueda == -1){
+           if(pixeles == MAX_PX){
+               pixeles = INICIAL_PX;
+               escala = escala - (escala/5);
+           }
+       }
+       ///Rueda del raton hacia abajo y se hace el aumento
+       else if(rueda == 1){
+           if(pixeles == MIN_PX){
+               pixeles = MAX_PX;
+               escala ++;
+           }
+       }
+       removeAll();
+       revalidate();
+       repaint();
+    }//GEN-LAST:event_formMouseWheelMoved
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

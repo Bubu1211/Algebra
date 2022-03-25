@@ -1,9 +1,7 @@
 
 package algebralineal;
 
-import elementos.graficos.PlanoCartesiano;
-import elementos.matrices.Matriz;
-import java.util.Scanner;
+import vista.Ventana;
 import javax.swing.JFrame;
 
 public class MainClass {
@@ -18,13 +16,13 @@ public class MainClass {
 //        System.out.println(a.conteoCumulos(1));
         
 //        Graficacion de la simulación del brazo
-        PlanoCartesiano g = new PlanoCartesiano();
-        JFrame j = new JFrame();
+        Ventana j = new Ventana();
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        j.setBounds(0,0,500,500);
-        j.getContentPane().add(g);
+        j.setLocationRelativeTo(null);
+        j.setBounds(0,0,800,600);
+        j.setTitle("Lazcano César 4°1 ");
         j.setVisible(true);
-
+//
 //        obtener el tipo de la matriz
 //        Matriz a = new Matriz(3,3);
 //        a.ingresar();
@@ -43,28 +41,34 @@ public class MainClass {
 //        System.out.println("Matriz Triangular Inferior");
 //        b.createMatrizTI();
 //        b.printConsole();
-        
+//        
 //
 //        Matriz a = new Matriz(2,1);
+//        /coordenadas originales
 //        a.setValor(0, 0, 3);
 //        a.setValor(1, 0, 6);
 //
+//        Matriz de transformacion
+//        float angulo = 100; ///ángulo de rotación
 //        Matriz b = new Matriz(2,2);
-//        b.setValor(0, 0, (float) (Math.cos(120 * Math.PI / 180)));
-//        b.setValor(1, 0, (float) (Math.sin(120 * Math.PI / 180)));
-//        b.setValor(0, 1, (float) (-1*(Math.sin(120 * Math.PI / 180))));
-//        b.setValor(1, 1, (float) (Math.cos(120 * Math.PI / 180)));
+//        b.setValor(0, 0, (float) (Math.cos(angulo * Math.PI / 180)));
+//        b.setValor(1, 0, (float) (Math.sin(angulo * Math.PI / 180)));
+//        b.setValor(0, 1, (float) (-1*(Math.sin(angulo * Math.PI / 180))));
+//        b.setValor(1, 1, (float) (Math.cos(angulo * Math.PI / 180)));
 //        
 //
-//        Matriz c = b.mul(a);
+//        Matriz c = b.mul(a); ///Se realiza la multiplicación
 //        
-//        System.out.println("A: ");
+//        /Muestra la matriz que contiene las coordenadas 
+//        System.out.println("Coordenada: ");
 //        a.printConsole();
 //        
-//        System.out.println("B: ");
+//        /Muestra la matriz con los valores de transformación
+//        System.out.println("Transformación: ");
 //        b.printConsole();
 //        
-//        System.out.println("C= ");
+//        /Muestra las nuevas coordenadas
+//        System.out.println("Nuevas coordenadas= ");
 //        c.printConsole();
     }
 }

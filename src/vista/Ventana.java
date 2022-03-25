@@ -2,6 +2,7 @@ package vista;
 
 import elementos.numeros.Complejo;
 import elementos.graficos.PlanoArgand;
+import elementos.graficos.PlanoCartesiano;
 import javax.swing.JOptionPane;
 
 public class Ventana extends javax.swing.JFrame {
@@ -15,13 +16,15 @@ public class Ventana extends javax.swing.JFrame {
         z2 = new Complejo();
         initComponents();
         addPlano();
-        addMatrizPanel();
+        addPanelGraficacion();
     }
     
-    public void addMatrizPanel(){
-        elementos.graficos.MatrizPanel p = new elementos.graficos.MatrizPanel();
-        p.setBounds(0,0,100,100);
-        matricesPanel.add(p);
+    public void addPanelGraficacion(){
+       PlanoCartesiano plano = new PlanoCartesiano();
+       int width = panelGraficacion.getWidth();
+       int height = panelGraficacion.getHeight();
+       plano.setBounds(0,0,width, height);
+       this.panelGraficacion.add(plano);
     }
 
     @SuppressWarnings("unchecked")
@@ -29,6 +32,11 @@ public class Ventana extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        matricesPanel = new javax.swing.JPanel();
+        panelGraficacion = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         numerosComplejos = new javax.swing.JPanel();
         z1_txt = new javax.swing.JTextField();
         btn_graficar = new javax.swing.JButton();
@@ -43,15 +51,52 @@ public class Ventana extends javax.swing.JFrame {
         btn_argumento = new javax.swing.JButton();
         btn_dividir = new javax.swing.JButton();
         btn_pow = new javax.swing.JButton();
-        matricesPanel = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        btn_rotacion = new javax.swing.JButton();
-        panel_cambio = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 700, 500));
+
+        matricesPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        panelGraficacion.setBackground(new java.awt.Color(255, 102, 102));
+        panelGraficacion.setLayout(new java.awt.CardLayout());
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
+        jButton3.setText("jButton3");
+
+        javax.swing.GroupLayout matricesPanelLayout = new javax.swing.GroupLayout(matricesPanel);
+        matricesPanel.setLayout(matricesPanelLayout);
+        matricesPanelLayout.setHorizontalGroup(
+            matricesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(matricesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(matricesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelGraficacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(matricesPanelLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addGap(0, 498, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        matricesPanelLayout.setVerticalGroup(
+            matricesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, matricesPanelLayout.createSequentialGroup()
+                .addGroup(matricesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(12, 12, 12)
+                .addComponent(panelGraficacion, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Transformaciones", matricesPanel);
 
         numerosComplejos.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -182,43 +227,10 @@ public class Ventana extends javax.swing.JFrame {
                     .addComponent(btn_graficar)
                     .addComponent(btn_dividir)
                     .addComponent(btn_pow))
-                .addContainerGap(430, Short.MAX_VALUE))
+                .addContainerGap(440, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Calculadora gráfica", numerosComplejos);
-
-        matricesPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTextField1.setText("0");
-        matricesPanel.add(jTextField1);
-
-        jLabel1.setText("°");
-        matricesPanel.add(jLabel1);
-
-        btn_rotacion.setText("Rotar");
-        btn_rotacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_rotacionActionPerformed(evt);
-            }
-        });
-        matricesPanel.add(btn_rotacion);
-
-        panel_cambio.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panel_cambioLayout = new javax.swing.GroupLayout(panel_cambio);
-        panel_cambio.setLayout(panel_cambioLayout);
-        panel_cambioLayout.setHorizontalGroup(
-            panel_cambioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 605, Short.MAX_VALUE)
-        );
-        panel_cambioLayout.setVerticalGroup(
-            panel_cambioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 528, Short.MAX_VALUE)
-        );
-
-        matricesPanel.add(panel_cambio);
-
-        jTabbedPane1.addTab("Transformaciones", matricesPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -348,11 +360,6 @@ public class Ventana extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_powActionPerformed
 
-    private void btn_rotacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rotacionActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btn_rotacionActionPerformed
-
     private String formatoMensaje(String cad) {
         return "<HTML><h2>" + cad + "</h2><HTML>";
     }
@@ -373,16 +380,16 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton btn_pow;
     private javax.swing.JButton btn_producto;
     private javax.swing.JButton btn_restar;
-    private javax.swing.JButton btn_rotacion;
     private javax.swing.JButton btn_sumar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel matricesPanel;
     private javax.swing.JPanel numerosComplejos;
-    private javax.swing.JPanel panel_cambio;
+    private javax.swing.JPanel panelGraficacion;
     private javax.swing.JTextField z1_txt;
     private javax.swing.JTextField z2_txt;
     // End of variables declaration//GEN-END:variables
