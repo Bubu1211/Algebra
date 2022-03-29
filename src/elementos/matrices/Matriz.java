@@ -338,4 +338,62 @@ public class Matriz {
             }
         }
     }
+    
+    
+    public float[] mulFila(int nFila, float valor){
+        float[] fila = new float[columnas];
+        for(int i = 0; i<columnas; i++){
+            fila[i] = valor*a[nFila][i] ;
+        }
+        return fila;
+    }
+    
+    public float[] divFila(int nFila, float valor){
+        float[] fila = new float[columnas];
+        for(int i = 0; i<columnas; i++){
+            fila[i] = a[nFila][i]/valor ;
+        }
+        return fila;
+    }
+    
+     public float[] restarFilas(float[] fila1, float[] fila2){
+        float[] fila = new float[columnas];
+        
+        for(int i = 0; i<columnas; i++){
+            fila[i] = fila1[i]-fila2[i];
+        }
+        return fila;
+    }
+    
+    /** 
+     * Devuelve un array de valores que representan las solociones para 
+     * el sistema de ecuaciones lineales que es representado por esta matriz
+     * el método de solución es Gauss simple
+     */
+    public float[] gauss(){
+        
+        for(int i = 0; i<filas; i++){
+            if(a[i][i] != 1 && a[i][i] != -1){
+                a[i] = divFila(i,a[i][i]);
+            }
+            for(int k = i+1 ; k<filas; k++){
+                if(a[k][i] != 0){
+                    a[k] = restarFilas(a[k], mulFila(i, a[k][i]));
+                }
+            }
+        }
+        
+        float[] variables = new float[columnas-1];
+        float v = 0f;
+        variables[columnas-2] = a[filas-1][columnas-1];
+        
+        for(int i = filas-1;i>=0; i--){
+            for(int j = columnas-2; j>i; j--){
+                v += a[i][j] * variables[j];
+            }
+            variables[i] = v / a[i][i];
+        }
+        
+        return variables;
+    }
 }

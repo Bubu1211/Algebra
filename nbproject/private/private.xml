@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/graficos/cuerpos/Linea.java</file>
-            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/graficos/cuerpos/Poligono.java</file>
-            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/graficos/PlanoCartesiano.java</file>
-            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/algebralineal/MainClass.java</file>
+            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/numeros/sistemas/Ecuacion.java</file>
             <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/vista/Ventana.java</file>
-            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/graficos/cuerpos/Eje.java</file>
-            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/graficos/cuerpos/Cuerpo.java</file>
-            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/graficos/Dibujo.java</file>
+            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/numeros/sistemas/SistemaEcuaciones.java</file>
+            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/numeros/sistemas/Termino.java</file>
             <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/matrices/Matriz.java</file>
-            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/elementos/graficos/cuerpos/Point.java</file>
+            <file>file:/G:/Mi%20unidad/Universidad/4°%20Semestre/Álgebra%20Lineal/Proyecto_AlgebraLineal/Codigo_Java/AlgebraLineal/src/algebralineal/App.java</file>
         </group>
     </open-files>
 </project-private>

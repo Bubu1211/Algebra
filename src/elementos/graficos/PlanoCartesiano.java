@@ -32,6 +32,10 @@ public class PlanoCartesiano extends javax.swing.JPanel {
     private static final int INICIAL_PX = 35;
     
 
+    private boolean seleccionar;
+    private boolean madePoligono;
+    
+    
     /**
      * Creates new form Graficadora
      */
@@ -39,7 +43,8 @@ public class PlanoCartesiano extends javax.swing.JPanel {
         initComponents();
         escala = 1f;
         pixeles = INICIAL_PX;
-        
+        seleccionar = true;
+        madePoligono = false;
     }
 
     public void pintarEjes(Graphics2D g) {
@@ -100,15 +105,10 @@ public class PlanoCartesiano extends javax.swing.JPanel {
 
         Poligono p = new Poligono();
         p.setGrosor(3); 
-        p.add(2,0);///Vértice 0
-        p.add(4,2);///Vértice 1
-        p.add(4,4);///Vértice 2
-        p.add(2,6);///Vértice 3
-        p.add(0,4);///Vértice 4
-        p.add(0,2);///Vértice 5
-        p.add(2,3);///Vértice 6
-        p.add(2,3);///Vértice 6
-        p.add(2,4);///Vértice 7
+        p.add(0,0);///Vértice 0
+        p.add(4,0);///Vértice 0
+        p.add(4,4);///Vértice 0
+        p.add(0,4);///Vértice 0
 
         dibujo.paint(p);
         p.rotar(90);  ///Ángulo de rotación 
@@ -137,6 +137,11 @@ public class PlanoCartesiano extends javax.swing.JPanel {
         addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 formMouseWheelMoved(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
             }
         });
 
@@ -178,6 +183,14 @@ public class PlanoCartesiano extends javax.swing.JPanel {
        revalidate();
        repaint();
     }//GEN-LAST:event_formMouseWheelMoved
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        ///Cuando se seleccione debe ver que cuerpo esta seleccionado
+        int x = evt.getX();
+        int y = evt.getY();
+        System.out.println("x= "+x+" y = "+y);
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,6 +4,7 @@ import elementos.numeros.Complejo;
 import elementos.graficos.PlanoArgand;
 import elementos.graficos.PlanoCartesiano;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class Ventana extends javax.swing.JFrame {
 
@@ -12,6 +13,13 @@ public class Ventana extends javax.swing.JFrame {
     private Complejo z2;    ///Se usará una lista de Complejos
 
     public Ventana() {
+        
+        try{
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        }catch(Exception e){
+            e.printStackTrace();
+        } 
+        
         z1 = new Complejo();
         z2 = new Complejo();
         initComponents();
@@ -37,6 +45,8 @@ public class Ventana extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        btnPoligono = new javax.swing.JButton();
         numerosComplejos = new javax.swing.JPanel();
         z1_txt = new javax.swing.JTextField();
         btn_graficar = new javax.swing.JButton();
@@ -52,7 +62,6 @@ public class Ventana extends javax.swing.JFrame {
         btn_dividir = new javax.swing.JButton();
         btn_pow = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 700, 500));
 
@@ -63,9 +72,23 @@ public class Ventana extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Rotar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("jButton3");
+
+        jButton4.setText("jButton4");
+
+        btnPoligono.setText("Poligono");
+        btnPoligono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPoligonoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout matricesPanelLayout = new javax.swing.GroupLayout(matricesPanel);
         matricesPanel.setLayout(matricesPanelLayout);
@@ -81,7 +104,11 @@ public class Ventana extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
-                        .addGap(0, 498, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPoligono)
+                        .addGap(0, 351, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         matricesPanelLayout.setVerticalGroup(
@@ -90,9 +117,11 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(matricesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(btnPoligono))
                 .addGap(12, 12, 12)
-                .addComponent(panelGraficacion, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                .addComponent(panelGraficacion, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -360,6 +389,17 @@ public class Ventana extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_powActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        JFRotacion rotacion = new JFRotacion();
+        rotacion.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnPoligonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPoligonoActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnPoligonoActionPerformed
+
     private String formatoMensaje(String cad) {
         return "<HTML><h2>" + cad + "</h2><HTML>";
     }
@@ -372,6 +412,7 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPoligono;
     private javax.swing.JButton btn_argumento;
     private javax.swing.JButton btn_conjugado;
     private javax.swing.JButton btn_dividir;
@@ -384,6 +425,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTabbedPane jTabbedPane1;

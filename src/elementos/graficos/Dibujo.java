@@ -91,4 +91,12 @@ public class Dibujo {
             }
         }
     }
+    
+    public boolean isSelected(int x, int y){
+        boolean seleccionado = false;
+        
+        
+        
+        return seleccionado;
+    }
 }
